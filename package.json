@@ -1,0 +1,13 @@
+{
+  "name": "dashboard-financas",
+  "version": "1.0.0",
+  "description": "Dashboard de finanças pessoais que roda 100% no navegador",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "test": "node --test"
+  },
+  "author": "Weslei Sousa",
+  "license": "MIT"
+}

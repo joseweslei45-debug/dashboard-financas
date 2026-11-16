@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Finanças</title>
+  <meta name="description" content="Importe extratos CSV/OFX, categorize gastos e visualize suas finanças. Tudo no navegador." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="topo">
+    <div>
+      <h1>💰 Dashboard de Finanças</h1>
+      <p>Seus extratos ficam só no seu navegador — nada é enviado para servidores.</p>
+    </div>
+    <div class="acoes">
+      <button id="btn-exemplo" class="secundario">Carregar exemplo</button>
+      <button id="btn-exportar" class="secundario" disabled>Exportar CSV</button>
+      <button id="btn-limpar" class="secundario" disabled>Limpar</button>
+    </div>
+  </header>
+
+  <main>
+    <label id="dropzone" class="dropzone">
+      <input id="arquivos" type="file" accept=".csv,.ofx" multiple />
+      <strong>Arraste seus extratos aqui</strong>
+      <span>ou clique para escolher · CSV (data;descrição;valor) ou OFX</span>
+    </label>
+    <p id="aviso" class="aviso" hidden></p>
+
+    <section id="painel" hidden>
+      <div class="kpis">
+        <article class="kpi"><span>Receitas</span><strong id="kpi-receitas" class="positivo">-</strong></article>
+        <article class="kpi"><span>Despesas</span><strong id="kpi-despesas" class="negativo">-</strong></article>
+        <article class="kpi"><span>Saldo</span><strong id="kpi-saldo">-</strong></article>
+        <article class="kpi"><span>Maior gasto</span><strong id="kpi-maior">-</strong></article>
+      </div>
+
+      <div class="filtros">
+        <select id="filtro-mes"><option value="">Todos os meses</option></select>
+        <select id="filtro-categoria"><option value="">Todas as categorias</option></select>
+        <input id="filtro-busca" type="search" placeholder="Buscar descrição..." />
+      </div>
+
+      <div class="graficos">
+        <figure class="card"><figcaption>Despesas por categoria</figcaption><canvas id="grafico-categorias"></canvas></figure>
+        <figure class="card"><figcaption>Receitas x despesas por mês</figcaption><canvas id="grafico-meses"></canvas></figure>
+        <figure class="card largo"><figcaption>Saldo acumulado</figcaption><canvas id="grafico-saldo"></canvas></figure>
+      </div>
+
+      <div class="card">
+        <div class="cabecalho-tabela">
+          <h2>Transações <small id="contador"></small></h2>
+        </div>
+        <div class="tabela-wrapper">
+          <table>
+            <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th></tr></thead>
+            <tbody id="tabela"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <details class="card regras">
+        <summary>⚙️ Regras de categorização</summary>
+        <p>Ensine o dashboard: toda descrição que contiver o termo vai para a categoria escolhida. Suas regras ficam salvas neste navegador.</p>
+        <form id="form-regra">
+          <input id="regra-termo" placeholder="Termo (ex.: barbearia)" required />
+          <input id="regra-categoria" placeholder="Categoria (ex.: Cuidados pessoais)" list="lista-categorias" required />
+          <datalist id="lista-categorias"></datalist>
+          <button type="submit">Adicionar regra</button>
+        </form>
+        <ul id="regras-personalizadas"></ul>
+      </details>
+    </section>
+  </main>
+
+  <footer>Feito por <a href="https://github.com/joseweslei45-debug">Weslei Sousa</a> · <a href="https://github.com/joseweslei45-debug/dashboard-financas">código-fonte</a></footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
